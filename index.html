@@ -383,6 +383,16 @@ fieldset.g legend{
           <span class="rl"></span><span></span>
           <span class="rl">E-pasts</span><input class="wi ro" id="cEpastsOnly" readonly>
         </div>
+        <div style="margin-top:5px;">
+          <div class="rl" style="text-align:left;font-weight:bold;font-size:10.5px;color:#6a1a1a;margin-bottom:2px;">Aizliegumi</div>
+          <div style="border:1px solid #8aacaa;border-radius:3px;overflow:hidden;">
+            <table class="wt" style="margin:0;table-layout:fixed;width:100%;">
+              <colgroup><col style="width:150px;"><col style="width:180px;"><col><col style="width:100px;"><col style="width:100px;"></colgroup>
+              <thead><tr><th>Dokumenta Nr. / datums</th><th>Iestāde</th><th>Iemesls</th><th>Sākums</th><th>Beigas</th></tr></thead>
+              <tbody id="cAizliegumiTbody"></tbody>
+            </table>
+          </div>
+        </div>
       </fieldset>
 
       <fieldset class="g">
@@ -424,7 +434,7 @@ fieldset.g legend{
             <td class="rl" style="padding:2px 4px;">Lēmuma nosūtīšanas veids</td>
             <td style="padding:2px 4px;">
               <select class="ws" id="cSendType" style="width:100%;">
-                <option>E-pasts</option><option>Pa pastu</option><option>Portāls latvija.lv</option><option>Klātienē</option><option>Fakss</option>
+                <option>E-pasts</option><option>Pa pastu</option><option>E-adrese</option><option>Portāls latvija.lv</option><option>Klātienē</option><option>Fakss</option>
               </select>
             </td>
             <td class="rl" style="padding:2px 4px;">Inf. par apstrādi tiks nosūtīta</td>
@@ -470,6 +480,7 @@ fieldset.g legend{
             <div style="display:flex;gap:4px;">
               <button class="btn pr" onclick="viewDocument()">Apskatīt dokumentu</button>
               <button class="btn nw" onclick="openRegDocModal()">+ Pievienot reģistrētu dokumentu</button>
+              <button class="btn nw" onclick="openA1SagataveModal()">+ Reģistrēt personu (A1 sagatave)</button>
             </div>
           </div>
 
@@ -544,6 +555,8 @@ fieldset.g legend{
                   <option value="24men" data-law="EK Regula Nr. 883/2004, 12. panta 1. punkts — 24 mēnešu ierobežojums">Periods pārsniedz 24 mēnešus</option>
                   <option value="bez_dokum" data-law="EK Regula Nr. 987/2009, 19. pants — Informācijas sniegšana">Trūkst obligāto dokumentu</option>
                   <option value="neatbilst" data-law="EK Regula Nr. 883/2004 — Vispārīgie nosacījumi">Neatbilstība EK Regulas 883/2004 nosacījumiem</option>
+                  <option value="pasnodarb_nav_veicis" data-law="EK Regula Nr. 883/2004, 13. panta 2. punkts — Pašnodarbinātas personas darbība">Pašnodarbinātais nav veicis saimniecisko darbību Latvijā</option>
+                  <option value="neveic_saimniecisko" data-law="EK Regula Nr. 883/2004, 14. panta 2. punkts — Būtiska saimnieciskā darbība">Darba devējs neveic būtisku saimniecisko darbību Latvijā</option>
                   <option value="cits" data-law="">Cits iemesls</option>
                 </select>
               </div>
@@ -568,6 +581,7 @@ fieldset.g legend{
                   <option>Norīkojuma vēstules oriģināls ar parakstu</option>
                   <option>Izziņa par sociālo apdrošināšanu iepriekšējos 2 gados</option>
                   <option>Darba devēja reģistrācijas apliecinājums</option>
+                  <option>Citi dokumenti</option>
                 </select>
               </div>
               <div class="g2" style="margin-top:4px;">
@@ -814,6 +828,7 @@ fieldset.g legend{
                   <option>Norīkojuma vēstules oriģināls ar parakstu</option>
                   <option>Izziņa par sociālo apdrošināšanu iepriekšējos 2 gados</option>
                   <option>Darba devēja reģistrācijas apliecinājums</option>
+                  <option>Citi dokumenti</option>
                 </select>
               </div>
               <div class="g2" style="margin-top:4px;"><span class="rl">Termiņš līdz</span><input class="wi" id="atliktTermins" style="width:120px;" placeholder="dd.mm.gggg"></div>
@@ -845,12 +860,14 @@ fieldset.g legend{
                   <option value="nav_apdros" data-law="EK Regula Nr. 883/2004, 12. pants — Norīkotie darbinieki">Persona nav sociāli apdrošināta Latvijā norīkojuma laikā</option>
                   <option value="pagajuse"   data-law="Administratīvā procesa likums, 66. pants">Iesniegums iesniegts par jau pagājušu periodu</option>
                   <option value="nav_reg"    data-law="Sociālās apdrošināšanas likums, 7. pants">Darba devējs nav reģistrēts kā darba devējs</option>
+                  <option value="nav_darba_attiec" data-law="Sociālās apdrošināšanas likums, 7. pants — Darba tiesiskās attiecības">Nav darba attiecību</option>
                   <option value="vienlaicigi" data-law="EK Regula Nr. 883/2004, 13. pants">Persona vienlaicīgi strādā mērķa dalībvalstī</option>
                   <option value="24men"      data-law="EK Regula Nr. 883/2004, 12. panta 1. punkts">Periods pārsniedz 24 mēnešus</option>
                   <option value="bez_dokum"  data-law="EK Regula Nr. 987/2009, 19. pants">Trūkst obligāto dokumentu</option>
                   <option value="neatbilst"  data-law="EK Regula Nr. 883/2004 — Vispārīgie nosacījumi">Neatbilstība EK Regulas 883/2004 nosacījumiem</option>
                   <option value="atvalinajums" data-law="EK Regula Nr. 883/2004, 11. pants">Atrodas atvaļinājumā bez darba algas saglabāšanas</option>
                   <option value="nav_atl"    data-law="Imigrācijas likums, 23. pants">Ārvalstnieks, kuram nav derīgas uzturēšanās atļaujas</option>
+                  <option value="neveic_saimniecisko" data-law="EK Regula Nr. 883/2004, 14. panta 2. punkts — Būtiska saimnieciskā darbība">Darba devējs neveic būtisku saimniecisko darbību Latvijā</option>
                   <option value="cits"       data-law="">Cits iemesls</option>
                 </select>
               </div>
@@ -979,6 +996,12 @@ fieldset.g legend{
               <button class="btn sm pr" onclick="viewDocument()">Apskatīt iemaksu vēsturi</button>
             </div>
 
+            <div id="sagataveDisplayBlock" style="display:none;margin-top:8px;">
+              <hr class="sep">
+              <div class="sec-t" style="margin-top:6px;">A1 sertifikāta sagataves dati</div>
+              <div id="sagataveDisplayBody" style="border:1px solid #8aacaa;border-radius:3px;background:#e8ecea;padding:8px;font-size:11px;line-height:1.6;"></div>
+            </div>
+
           </div>
 
         </div>
@@ -1087,6 +1110,121 @@ fieldset.g legend{
     <div class="mf">
       <button class="btn pr" onclick="saveNewResp()">Pievienot</button>
       <button class="btn pr" onclick="closeModal('newRespModal')">Atcelt</button>
+    </div>
+  </div>
+</div>
+
+<!-- A1 SERTIFIKĀTA SAGATAVES MODAL -->
+<div class="mo" id="a1SagataveModal">
+  <div class="mw" style="min-width:700px;max-width:760px;">
+    <div class="mt"><span>A1 sertifikāta sagatave — jauna persona</span><button class="tbtn" onclick="closeModal('a1SagataveModal')">✕</button></div>
+    <div class="mb" style="max-height:70vh;overflow-y:auto;">
+
+      <div class="sec-t" style="color:#1c4c5c;">Personas dati</div>
+      <div style="display:grid;grid-template-columns:190px 1fr 130px 1fr;gap:6px;row-gap:6px;align-items:center;margin-bottom:8px;">
+        <span class="rl">Personas kods</span><input class="wi" id="sgPersKods" placeholder="dddddd-ddddd">
+        <span class="rl">Cita valsts ident. kods / valsts</span><input class="wi" id="sgCitsIdKods" placeholder="Kods / valsts kods">
+        <span class="rl">Uzvārds</span><input class="wi" id="sgUzvards">
+        <span class="rl">Vārds</span><input class="wi" id="sgVards">
+        <span class="rl">Dzimtais uzvārds</span><input class="wi" id="sgDzimtaisUzv">
+        <span class="rl">Valsts piederība</span><input class="wi" id="sgValstsPiederiba">
+        <span class="rl">Dzimšanas vieta</span><input class="wi" id="sgDzimVieta">
+        <span class="rl">Dzimšanas datums</span><input class="wi" id="sgDzimDatums" placeholder="dd.mm.gggg">
+        <span class="rl">Informācija par vīzu</span><input class="wi" id="sgViza">
+        <span class="rl">Tālruņa numurs</span><input class="wi" id="sgTalrunis">
+        <span class="rl">E-pasta adrese</span><input class="wi" id="sgEpasts">
+        <span></span><span></span>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;margin-bottom:8px;">
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="sgApdrosLV"> Persona ir sociāli apdrošināta Latvijā</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="sgIrDN"> Persona ir darba ņēmējs</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="sgIrIered"> Persona ir ierēdnis</label>
+      </div>
+      <div style="display:grid;grid-template-columns:190px 1fr 130px 1fr;gap:6px;row-gap:6px;align-items:center;margin-bottom:4px;">
+        <span class="rl" style="grid-column:1/2;">Adrese dzīvesvietas valstī</span>
+        <input class="wi" id="sgAdrDzivValsts" style="grid-column:2/3;" placeholder="Valsts">
+        <input class="wi" id="sgAdrDzivIela" style="grid-column:3/5;" placeholder="Iela/māja">
+        <span></span>
+        <input class="wi" id="sgAdrDzivPilseta" style="grid-column:2/3;" placeholder="Pilsēta/apdz. vieta">
+        <input class="wi" id="sgAdrDzivIndekss" style="grid-column:3/5;" placeholder="Pasta indekss">
+      </div>
+      <div style="display:grid;grid-template-columns:190px 1fr 130px 1fr;gap:6px;row-gap:6px;align-items:center;margin-bottom:8px;">
+        <span class="rl" style="grid-column:1/2;">Adrese uzturēšanās valstī</span>
+        <input class="wi" id="sgAdrUztValsts" style="grid-column:2/3;" placeholder="Valsts">
+        <input class="wi" id="sgAdrUztIela" style="grid-column:3/5;" placeholder="Iela/māja">
+        <span></span>
+        <input class="wi" id="sgAdrUztPilseta" style="grid-column:2/3;" placeholder="Pilsēta/apdz. vieta">
+        <input class="wi" id="sgAdrUztIndekss" style="grid-column:3/5;" placeholder="Pasta indekss">
+      </div>
+
+      <hr class="sep">
+      <div class="sec-t" style="color:#1c4c5c;">Nodarbinātības periods</div>
+      <div style="display:grid;grid-template-columns:190px 1fr 130px 1fr;gap:6px;row-gap:6px;align-items:center;margin-bottom:6px;">
+        <span class="rl">Paredzamais periods no</span><input class="wi" id="sgPeriodsNo" placeholder="dd.mm.gggg">
+        <span class="rl">līdz</span><input class="wi" id="sgPeriodsLidz" placeholder="dd.mm.gggg">
+      </div>
+      <div class="rl" style="text-align:left;font-size:10.5px;color:#3a5a58;margin-bottom:2px;">Nodarbinātības valstis (visas ES/EEZ valstis, Šveice un Apvienotā Karaliste)</div>
+      <div id="sgValstsList" style="display:grid;grid-template-columns:repeat(6,1fr);gap:1px 6px;font-size:10px;padding:5px;border:1px solid #8aacaa;border-radius:3px;background:#e8ecea;margin-bottom:8px;"></div>
+
+      <hr class="sep">
+      <div class="sec-t" style="color:#1c4c5c;">Darba devēja dati</div>
+      <div style="display:grid;grid-template-columns:190px 1fr 130px 1fr;gap:6px;row-gap:6px;align-items:center;margin-bottom:6px;">
+        <span class="rl">NMR kods</span><input class="wi" id="sgDdNmr">
+        <span class="rl">Nosaukums</span><input class="wi" id="sgDdNosaukums" style="grid-column:2/5;">
+        <span class="rl">Darbības veids Latvijā</span><input class="wi" id="sgDdDarbibasVeids" style="grid-column:2/5;">
+        <span class="rl">Juridiskā adrese</span>
+        <input class="wi" id="sgDdValstsKods" placeholder="Valsts kods" style="width:80px;">
+        <input class="wi" id="sgDdAdrese" style="grid-column:4/5;" placeholder="Adrese">
+        <span class="rl">Tālrunis</span><input class="wi" id="sgDdTalrunis">
+        <span class="rl">E-pasts</span><input class="wi" id="sgDdEpasts">
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;margin-bottom:8px;">
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="sgDdVeicSaimn"> Darba devējs veic saimniecisko darbību Latvijā</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="sgDdIznomats"> Darbinieks tiek iznomāts citas ES/EEZ valsts, Šveices vai AK darba devējam</label>
+      </div>
+
+      <hr class="sep">
+      <div class="sec-t" style="color:#1c4c5c;">Nodarbinātības informācija</div>
+      <div style="display:grid;grid-template-columns:190px 1fr 130px 1fr;gap:6px;row-gap:6px;align-items:center;margin-bottom:6px;">
+        <span class="rl">Darba laiks Latvijā (% no kopējā)</span><input class="wi" id="sgLaiksLV" style="width:70px;" placeholder="0">
+        <span class="rl">Atalgojums no LV darba devēja (%)</span><input class="wi" id="sgAtalgLV" style="width:70px;" placeholder="0">
+      </div>
+      <div class="g2" style="margin-top:2px;margin-bottom:8px;">
+        <span class="rl" style="padding-top:3px;">Citi ES/EEZ/Šveices/AK darba devēji vai darba vietas</span>
+        <textarea class="wta" id="sgCitiDdVietas" rows="2" style="width:100%;" placeholder="Nodokļu maksātāja reģ. kods un nosaukums; darba laiks (%); darba pienākumi/darbības joma; adrese..."></textarea>
+      </div>
+      <div class="g2" style="margin-top:2px;margin-bottom:8px;">
+        <span class="rl">Nodarbinātības veids</span>
+        <select class="ws" id="sgNodVeids" style="width:100%;">
+          <option value="">— Izvēlieties —</option>
+          <option>Darba ņēmēja statusā</option>
+          <option>Ierēdņa statusā</option>
+          <option>Pašnodarbinātā statusā</option>
+          <option>Darba ņēmēja un pašnodarbinātā statusā vienlaicīgi</option>
+          <option>Kā nodarbināts lidojuma apkalpes un salona apkalpes loceklis</option>
+          <option>Kā nodarbināts uz upes kuģa</option>
+          <option>Kā nodarbināts uz jūras kuģa</option>
+          <option>Eiropas kopienu līgumdarbinieks</option>
+        </select>
+      </div>
+
+      <hr class="sep">
+      <div class="sec-t" style="color:#1c4c5c;">Papildinformācija</div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:10.5px;margin-bottom:6px;">
+        <span class="rl" style="white-space:nowrap;">A1 sertifikātu vēlos saņemt:</span>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="sgSanemtA1" value="dd_eadrese" checked> Uz LV darba devēja oficiālo e-adresi</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="sgSanemtA1" value="pers_eadrese"> Uz personas oficiālo e-adresi</label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="radio" name="sgSanemtA1" value="epasts"> E-pastā</label>
+      </div>
+      <div class="g2" style="margin-top:2px;">
+        <span class="rl" style="padding-top:3px;">Papildu informācija</span>
+        <textarea class="wta" id="sgPapildInfo" rows="2" style="width:100%;"></textarea>
+      </div>
+
+    </div>
+    <div class="mf">
+      <button class="btn pr" onclick="saveA1Sagatave()">Reģistrēt personu</button>
+      <button class="btn pr" onclick="closeModal('a1SagataveModal')">Atcelt</button>
     </div>
   </div>
 </div>
@@ -1245,6 +1383,7 @@ var apps=[
    regNr:'40003123456',adrese:'Brīvības iela 40, Rīga, LV-1010',talrunis:'+371 67123456',kontakts:'Jānis Bērziņš',epasts:'j.berzins@kreiss.lv',
    appName:'11724 — Iesniegums sociāli apdrošināmās personas statusa saglabāšanai Latvijā (A1 sertifikāta saņemšanai)',appTypeCode:'11724',appRegNr:'2026-A1-11720',appRegDate:'01.02.2026',receiveType:'Pa pastu',
    status:'no',expanded:false,
+   aizliegumi:[{docNr:'VID-2026/4471, 15.01.2026',iestade:'Valsts ieņēmumu dienests',iemesls:'Nodokļu parāds virs 150 EUR',no:'15.01.2026',lidz:'—'}],
    persons:[{name:'MÜLLER HANS',kods:'511111-51111',valsts:'Austrija (AT)',veids:'Norīkotais darbinieks',no:'01.01.2026',lidz:'31.01.2026',devejs:'Kreiss GmbH Wien, Vīne',iesniegts:'01.02.2026',status:'no'}],
    docs:[{name:'muller_norikojums.pdf',size:'205 KB',descr:'Norīkojuma vēstule',date:'01.02.2026'}],
    responses:[{prepDate:'10.02.2026 10:00',regNr:'ATB-2026-11720-01',docType:'Noraidījuma lēmums',sendType:'E-pasts',sendDate:'10.02.2026',periodFrom:'—',periodTo:'—',persons:['511111-51111']}],
@@ -1342,6 +1481,7 @@ function onSelectApp(app){
   document.getElementById('cKontaktsRow').style.display=isPerson?'none':'';
   document.getElementById('cEpastsOnlyRow').style.display=isPerson?'':'none';
   sv('cEpastsOnly',app.epasts);
+  renderAizliegumi(app);
   sv('cAppName',app.appName);sv('cAppRegNr',app.appRegNr);
   sv('cAppFullTitle',app.appName);
   sv('cAppRegDate',app.appRegDate);
@@ -1383,6 +1523,7 @@ function onSelectPerson(app,p){
   renderPersonBreakPeriods(p);
   padTbody('pNodarbTbody',4,5);
   padTbody('pUzturTbody',3,3);
+  renderSagataveDisplay(p);
   setStatus('Izvēlēta persona: '+p.kods+' '+p.name+' ('+app.company+')');
 }
 
@@ -1493,6 +1634,84 @@ function openRegDocModal(){
   selApp.persons.forEach(function(p){var o=document.createElement('option');o.value=p.kods;o.textContent=p.kods+' '+p.name;ps.appendChild(o);});
   document.getElementById('regDocModal').classList.add('show');
 }
+
+var SG_EU_COUNTRIES=['Austrija','Beļģija','Bulgārija','Čehija','Dānija','Francija','Grieķija','Horvātija','Igaunija','Itālija','Īrija','Islande','Kipra','Latvija','Apvienotā Karaliste','Lietuva','Lihtenšteina','Luksemburga','Malta','Nīderlande','Norvēģija','Polija','Portugāle','Rumānija','Slovākija','Slovēnija','Somija','Spānija','Šveice','Ungārija','Vācija','Zviedrija'];
+
+function openA1SagataveModal(){
+  if(!selApp){showInfo('Kļūda','Nav izvēlēts iesniegums.');return;}
+  ['sgPersKods','sgCitsIdKods','sgUzvards','sgVards','sgDzimtaisUzv','sgValstsPiederiba','sgDzimVieta','sgDzimDatums','sgViza','sgTalrunis','sgEpasts',
+   'sgAdrDzivValsts','sgAdrDzivIela','sgAdrDzivPilseta','sgAdrDzivIndekss','sgAdrUztValsts','sgAdrUztIela','sgAdrUztPilseta','sgAdrUztIndekss',
+   'sgPeriodsNo','sgPeriodsLidz','sgDdNmr','sgDdNosaukums','sgDdDarbibasVeids','sgDdValstsKods','sgDdAdrese','sgDdTalrunis','sgDdEpasts',
+   'sgLaiksLV','sgAtalgLV','sgCitiDdVietas','sgPapildInfo'].forEach(function(id){document.getElementById(id).value='';});
+  ['sgApdrosLV','sgIrDN','sgIrIered','sgDdVeicSaimn','sgDdIznomats'].forEach(function(id){document.getElementById(id).checked=false;});
+  document.getElementById('sgNodVeids').value='';
+  var r=document.querySelector('input[name="sgSanemtA1"][value="dd_eadrese"]');if(r)r.checked=true;
+  var box=document.getElementById('sgValstsList');
+  box.innerHTML='';
+  SG_EU_COUNTRIES.forEach(function(c){
+    var lbl=document.createElement('label');lbl.style.cssText='display:flex;align-items:center;gap:3px;cursor:pointer;white-space:nowrap;padding:1px 0;';
+    var chk=document.createElement('input');chk.type='checkbox';chk.className='sg-valsts-chk';chk.value=c;chk.style.margin='0';
+    var sp=document.createElement('span');sp.textContent=c;
+    lbl.appendChild(chk);lbl.appendChild(sp);box.appendChild(lbl);
+  });
+  document.getElementById('a1SagataveModal').classList.add('show');
+}
+
+function saveA1Sagatave(){
+  if(!selApp)return;
+  var uzv=document.getElementById('sgUzvards').value.trim();
+  var vards=document.getElementById('sgVards').value.trim();
+  var kods=document.getElementById('sgPersKods').value.trim();
+  if(!uzv||!vards||!kods){showInfo('Nepieciešami dati','Lūdzu ievadiet uzvārdu, vārdu un personas kodu.');return;}
+  var valstis=Array.from(document.querySelectorAll('.sg-valsts-chk:checked')).map(function(c){return c.value;});
+  var now=new Date(),dt=pad(now.getDate())+'.'+pad(now.getMonth()+1)+'.'+now.getFullYear();
+  var sagatave={
+    citsIdKods:document.getElementById('sgCitsIdKods').value.trim(),
+    dzimtaisUzv:document.getElementById('sgDzimtaisUzv').value.trim(),
+    valstsPiederiba:document.getElementById('sgValstsPiederiba').value.trim(),
+    dzimVieta:document.getElementById('sgDzimVieta').value.trim(),
+    viza:document.getElementById('sgViza').value.trim(),
+    apdrosLV:document.getElementById('sgApdrosLV').checked,
+    irDN:document.getElementById('sgIrDN').checked,
+    irIered:document.getElementById('sgIrIered').checked,
+    adrDziv:{valsts:document.getElementById('sgAdrDzivValsts').value.trim(),iela:document.getElementById('sgAdrDzivIela').value.trim(),pilseta:document.getElementById('sgAdrDzivPilseta').value.trim(),indekss:document.getElementById('sgAdrDzivIndekss').value.trim()},
+    adrUzt:{valsts:document.getElementById('sgAdrUztValsts').value.trim(),iela:document.getElementById('sgAdrUztIela').value.trim(),pilseta:document.getElementById('sgAdrUztPilseta').value.trim(),indekss:document.getElementById('sgAdrUztIndekss').value.trim()},
+    ddNmr:document.getElementById('sgDdNmr').value.trim(),
+    ddDarbibasVeids:document.getElementById('sgDdDarbibasVeids').value.trim(),
+    ddValstsKods:document.getElementById('sgDdValstsKods').value.trim(),
+    ddAdrese:document.getElementById('sgDdAdrese').value.trim(),
+    ddTalrunis:document.getElementById('sgDdTalrunis').value.trim(),
+    ddEpasts:document.getElementById('sgDdEpasts').value.trim(),
+    ddVeicSaimn:document.getElementById('sgDdVeicSaimn').checked,
+    ddIznomats:document.getElementById('sgDdIznomats').checked,
+    laiksLV:document.getElementById('sgLaiksLV').value.trim(),
+    atalgLV:document.getElementById('sgAtalgLV').value.trim(),
+    citiDdVietas:document.getElementById('sgCitiDdVietas').value.trim(),
+    sanemtA1:(document.querySelector('input[name="sgSanemtA1"]:checked')||{}).value||'',
+    papildInfo:document.getElementById('sgPapildInfo').value.trim()
+  };
+  var p={
+    name:(uzv+' '+vards).toUpperCase(),
+    kods:kods,
+    valsts:valstis.join(', ')||'—',
+    veids:document.getElementById('sgNodVeids').value||'',
+    no:document.getElementById('sgPeriodsNo').value.trim(),
+    lidz:document.getElementById('sgPeriodsLidz').value.trim(),
+    devejs:document.getElementById('sgDdNosaukums').value.trim()||'—',
+    iesniegts:dt,
+    status:'new',
+    valstis:valstis,
+    a1Sagatave:sagatave
+  };
+  selApp.persons.push(p);
+  logGaita('doc','Reģistrēta persona (A1 sagatave): '+kods+' '+p.name);
+  closeModal('a1SagataveModal');
+  renderList();
+  sv('cAppPersonCount',selApp.persons.length);
+  sv('cAppUnprocessed',selApp.persons.filter(function(x){return x.status==='new'||x.status==='proc';}).length);
+  showNotif('+ Reģistrēta','Persona '+p.name+' pievienota iesniegumam ar A1 sagataves datiem.');
+}
+
 function saveRegDoc(){
   var n=document.getElementById('rdName').value.trim();
   if(!n){showInfo('Kļūda','Ievadiet dokumenta nosaukumu.');return;}
@@ -1678,6 +1897,46 @@ function switchAtteiktType(type){
   document.getElementById('atteiktSection').className='atts'+(type==='atteikt'?' show':'');
   document.getElementById('atliktSection').className='atts'+(type==='atlikt'?' show':'');
   document.getElementById('ddparbaudeSection').className='atts'+(type==='ddparbaude'?' show':'');
+}
+
+function renderSagataveDisplay(p){
+  var block=document.getElementById('sagataveDisplayBlock');
+  var body=document.getElementById('sagataveDisplayBody');
+  if(!block||!body)return;
+  var s=p&&p.a1Sagatave;
+  if(!s){block.style.display='none';body.innerHTML='';return;}
+  block.style.display='block';
+  var yn=function(v){return v?'Jā':'Nē';};
+  var adr=function(a){return a?[a.iela,a.pilseta,a.indekss,a.valsts].filter(Boolean).join(', ')||'—':'—';};
+  var sanemtLbl={dd_eadrese:'Uz LV darba devēja oficiālo e-adresi',pers_eadrese:'Uz personas oficiālo e-adresi',epasts:'E-pastā'}[s.sanemtA1]||'—';
+  body.innerHTML=
+    '<b>Cita valsts ident. kods / valsts:</b> '+(s.citsIdKods||'—')+'<br>'+
+    '<b>Dzimtais uzvārds:</b> '+(s.dzimtaisUzv||'—')+' &nbsp; <b>Valsts piederība:</b> '+(s.valstsPiederiba||'—')+'<br>'+
+    '<b>Dzimšanas vieta:</b> '+(s.dzimVieta||'—')+' &nbsp; <b>Vīza:</b> '+(s.viza||'—')+'<br>'+
+    '<b>Soc. apdrošināta LV:</b> '+yn(s.apdrosLV)+' &nbsp; <b>Darba ņēmējs:</b> '+yn(s.irDN)+' &nbsp; <b>Ierēdnis:</b> '+yn(s.irIered)+'<br>'+
+    '<b>Adrese dzīvesvietas valstī:</b> '+adr(s.adrDziv)+'<br>'+
+    '<b>Adrese uzturēšanās valstī:</b> '+adr(s.adrUzt)+'<br><br>'+
+    '<b>Darba devēja NMR kods:</b> '+(s.ddNmr||'—')+' &nbsp; <b>Darbības veids LV:</b> '+(s.ddDarbibasVeids||'—')+'<br>'+
+    '<b>Juridiskā adrese:</b> '+(s.ddValstsKods||'—')+' '+(s.ddAdrese||'')+' &nbsp; <b>Tālr.:</b> '+(s.ddTalrunis||'—')+' &nbsp; <b>E-pasts:</b> '+(s.ddEpasts||'—')+'<br>'+
+    '<b>Veic saimniecisko darbību LV:</b> '+yn(s.ddVeicSaimn)+' &nbsp; <b>Darbinieks tiek iznomāts:</b> '+yn(s.ddIznomats)+'<br><br>'+
+    '<b>Darba laiks Latvijā:</b> '+(s.laiksLV||'—')+'% &nbsp; <b>Atalgojums no LV darba devēja:</b> '+(s.atalgLV||'—')+'%<br>'+
+    '<b>Citi ES/EEZ/Šveices/AK darba devēji:</b> '+(s.citiDdVietas||'—')+'<br><br>'+
+    '<b>A1 sertifikātu vēlos saņemt:</b> '+sanemtLbl+'<br>'+
+    '<b>Papildu informācija:</b> '+(s.papildInfo||'—');
+}
+
+function renderAizliegumi(app){
+  var tb=document.getElementById('cAizliegumiTbody');if(!tb)return;
+  var rows=app&&app.aizliegumi?app.aizliegumi:[];
+  if(!rows.length){tb.innerHTML='<tr class="er"><td colspan="5" style="padding:4px 8px;color:#7a9a98;font-style:italic;">Nav reģistrētu aizliegumu.</td></tr>';return;}
+  tb.innerHTML=rows.map(function(a){
+    return '<tr>'+
+      '<td style="font-size:11px;">'+(a.docNr||'—')+'</td>'+
+      '<td style="font-size:11px;">'+(a.iestade||'—')+'</td>'+
+      '<td style="font-size:11px;">'+(a.iemesls||'—')+'</td>'+
+      '<td style="font-size:11px;">'+(a.no||'—')+'</td>'+
+      '<td style="font-size:11px;">'+(a.lidz||'—')+'</td></tr>';
+  }).join('');
 }
 
 function renderDDParbaude(app){
