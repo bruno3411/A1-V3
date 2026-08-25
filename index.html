@@ -309,6 +309,99 @@ fieldset.g legend{
 .icbtn{background:#cad6d4;border:1px solid #9ab8b6;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;transition:background 0.1s;}
 .icbtn:hover{background:#b8c8c6;}
 .icbtn:active{background:#a8b8b6;border-color:#7a9896;}
+
+/* ── GUIDED TOUR ── */
+.tour-hl{
+  position:fixed;
+  border-radius:6px;
+  border:2px solid #ffcc00;
+  box-shadow:0 0 0 9999px rgba(8,20,22,0.62), 0 0 0 5px rgba(255,204,0,0.18), 0 0 18px 3px rgba(255,204,0,0.55);
+  pointer-events:none;
+  z-index:999;
+  transition:top 0.25s cubic-bezier(.4,0,.2,1),left 0.25s cubic-bezier(.4,0,.2,1),width 0.25s cubic-bezier(.4,0,.2,1),height 0.25s cubic-bezier(.4,0,.2,1);
+  display:none;
+}
+.tour-tip{
+  position:fixed;
+  z-index:1001;
+  width:340px;
+  background:#ccd4d2;
+  border:1px solid #7eaeac;
+  border-radius:6px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.4);
+  font-family:"Tahoma","Segoe UI",Arial,sans-serif;
+  display:none;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity 0.18s ease,transform 0.18s ease;
+  overflow:hidden;
+}
+.tour-tip.show{opacity:1;transform:translateY(0);}
+.tour-tip-hd{
+  background:linear-gradient(135deg,#1c4c5c,#2a6070);
+  color:#e8f4f6;
+  font-weight:bold;
+  font-size:12px;
+  padding:8px 10px 7px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.tour-tip-hd-title{display:flex;align-items:center;gap:6px;overflow:hidden;}
+.tour-step-badge{
+  background:#ffcc00;color:#1a1c1b;font-size:10px;font-weight:bold;
+  border-radius:50%;width:20px;height:20px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.tour-tip-group{font-size:9.5px;font-weight:normal;color:#9fc6cf;text-transform:uppercase;letter-spacing:.4px;}
+.tour-tip-bar{height:3px;background:#8aacaa;position:relative;overflow:hidden;}
+.tour-tip-bar-fill{height:100%;background:linear-gradient(90deg,#ffcc00,#ffe08a);transition:width 0.25s ease;}
+.tour-tip-body{padding:11px 12px;font-size:11.5px;line-height:1.55;color:#1a1c1b;max-height:190px;overflow-y:auto;}
+.tour-tip-ft{padding:7px 10px;border-top:1px solid #8aacaa;display:flex;justify-content:space-between;align-items:center;gap:6px;background:#c2ccca;}
+.tour-progress{font-size:10px;color:#3a5a58;white-space:nowrap;}
+.tour-start-btn{position:fixed;bottom:20px;left:20px;z-index:150;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+
+/* ── TOUR NAV (jump to any step) ── */
+.tour-nav{
+  position:fixed;top:16px;right:0;bottom:16px;
+  width:250px;z-index:998;
+  background:#ccd4d2;border:1px solid #7eaeac;border-right:none;border-radius:6px 0 0 6px;
+  box-shadow:-3px 4px 18px rgba(0,0,0,0.4);
+  display:none;flex-direction:column;
+  transform:translateX(250px);
+  transition:transform 0.22s ease;
+}
+.tour-nav.expanded{transform:translateX(0);}
+.tour-nav-handle{
+  position:absolute;left:-30px;top:50%;transform:translateY(-50%);
+  width:30px;min-height:96px;background:#1c4c5c;border:1px solid #7eaeac;border-right:none;border-radius:6px 0 0 6px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:#e8f4f6;font-size:10.5px;font-weight:bold;letter-spacing:1px;
+  writing-mode:vertical-rl;text-orientation:mixed;
+  box-shadow:-2px 2px 8px rgba(0,0,0,0.3);
+  user-select:none;padding:8px 0;
+}
+.tour-nav-handle:hover{background:#2a6070;}
+.tour-nav-hd{background:#1c4c5c;color:#bcd8e4;font-weight:bold;font-size:11.5px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;gap:6px;}
+.tour-nav-hd-l{display:flex;align-items:center;gap:6px;overflow:hidden;}
+.tour-nav-close{background:none;border:none;color:#bcd8e4;font-size:13px;font-weight:bold;cursor:pointer;padding:0 2px;flex-shrink:0;}
+.tour-nav-close:hover{color:#fff;}
+.tour-nav-list{overflow-y:auto;flex:1;padding:4px 0;}
+.tour-nav-group-lbl{font-size:9.5px;font-weight:bold;font-style:italic;color:#3a5a58;text-transform:uppercase;letter-spacing:.3px;padding:8px 10px 3px;}
+.tour-nav-item{
+  display:flex;align-items:center;gap:7px;padding:5px 10px;font-size:10.5px;cursor:pointer;
+  color:#1a1c1b;border-left:3px solid transparent;transition:background 0.1s,border-color 0.1s;
+}
+.tour-nav-item:hover{background:#dde8e6;}
+.tour-nav-item.current{background:#c6e2e0;border-left-color:#ffcc00;font-weight:bold;}
+.tour-nav-item.done .tour-nav-num{background:#7eaeac;color:#fff;}
+.tour-nav-num{
+  flex-shrink:0;width:16px;height:16px;border-radius:50%;background:#a6b6b4;color:#1a1c1b;
+  font-size:9px;display:flex;align-items:center;justify-content:center;
+}
+.tour-nav-item.current .tour-nav-num{background:#ffcc00;color:#1a1c1b;}
+.tour-nav-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
 </style>
 </head>
 <body>
@@ -327,6 +420,7 @@ fieldset.g legend{
   <!-- LEFT -->
   <div class="wl">
     <div style="font-weight:bold;padding:2px 0;color:#1c4c5c;">Iesniegumu saraksts</div>
+    <div id="searchFilterBlock">
     <div class="fl"><span style="font-size:10px;white-space:nowrap;color:#3a5a58;">Meklēt:</span>
       <input class="wi" id="searchBox" style="flex:1;font-size:10px;height:18px;" placeholder="Nosaukums / pers.kods..." oninput="renderList()">
     </div>
@@ -335,6 +429,7 @@ fieldset.g legend{
         <option value="">Visi</option><option value="new">Jauns</option>
         <option value="proc">Apstrādē</option><option value="ok">Apstiprināts</option><option value="no">Noraidīts</option><option value="atlikt">Atlikts</option>
       </select>
+    </div>
     </div>
     <div class="lch">
       <span>Iesniegums / Persona</span>
@@ -351,11 +446,11 @@ fieldset.g legend{
       <div class="lg"><span class="sd da"></span><span>Atlikts</span></div>
     </div>
     <hr class="sep">
-    <button class="btn nw fw" onclick="openNewAppModal()">+ Reģistrēt jaunu iesniegumu</button>
+    <button class="btn nw fw" id="btnNewApp" onclick="openNewAppModal()">+ Reģistrēt jaunu iesniegumu</button>
     <hr class="sep">
     <button class="btn fw off" onclick="viewApplication()">Apskatīt iesniegumu</button>
     <button class="btn fw off" style="margin-top:3px;" onclick="viewImage()">Apskatīt e-iesnieguma attēlu</button>
-    <button class="btn pr fw" style="margin-top:3px;" onclick="registerReceivedA1()">Reģistrēt Saņemto A1</button>
+    <button class="btn pr fw" id="btnRegisterReceivedA1" style="margin-top:3px;" onclick="registerReceivedA1()">Reģistrēt Saņemto A1</button>
   </div>
 
   <!-- RIGHT -->
@@ -365,7 +460,7 @@ fieldset.g legend{
     <!-- COMPANY VIEW -->
     <div class="vp" id="companyView">
 
-      <fieldset class="g">
+      <fieldset class="g" id="fieldsetIesniedzejs">
         <legend>Informācija par iesniedzēju</legend>
         <div class="g4" style="margin-top:2px;">
           <span class="rl" id="lblNosaukums">Nosaukums</span><input class="wi ro" id="cNosaukums" style="width:100%;" readonly>
@@ -395,7 +490,7 @@ fieldset.g legend{
         </div>
       </fieldset>
 
-      <fieldset class="g">
+      <fieldset class="g" id="fieldsetIesniegums">
         <legend>Informācija par iesniegumu</legend>
         <table style="width:100%;border-collapse:collapse;margin-top:4px;font-size:11px;">
           <col style="width:155px;"><col><col style="width:145px;"><col>
@@ -526,7 +621,7 @@ fieldset.g legend{
 
           <!-- TAB: Atteikt -->
           <div class="ctab-panel" id="cpanel_atteikt">
-            <div style="padding:4px 0 8px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+            <div id="atteiktRadioRow" style="padding:4px 0 8px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
               <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="atteiktType" value="ddparbaude" checked onchange="switchAtteiktType('ddparbaude')"><span style="color:#1a4a6a;font-weight:bold;">DD pārbaude</span></label>
               <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="atteiktType" value="atlikt" onchange="switchAtteiktType('atlikt')"><span style="color:#6a3a00;font-weight:bold;">⏸ Atlikt apstrādi</span></label>
               <label style="display:flex;align-items:center;gap:5px;cursor:pointer;"><input type="radio" name="atteiktType" value="atteikt" onchange="switchAtteiktType('atteikt')"><span style="color:#6a1a1a;font-weight:bold;">Atteikt iesniegumu</span></label>
@@ -684,7 +779,7 @@ fieldset.g legend{
     <!-- PERSON VIEW -->
     <div class="vp" id="personView">
 
-      <fieldset class="g">
+      <fieldset class="g" id="fieldsetPersonasDati">
         <legend>Personas dati par kuru tiek pieprasīts A1 sertifikāts</legend>
         <table style="width:100%;border-collapse:collapse;margin-top:4px;font-size:11px;">
           <col style="width:130px;"><col><col style="width:130px;"><col>
@@ -884,7 +979,7 @@ fieldset.g legend{
             <hr class="sep" style="margin:10px 0 6px;">
 
             <div class="sec-t">Sagatavotās atbildes</div>
-            <table class="wt"><thead><tr>
+            <table class="wt" id="pRespTable"><thead><tr>
               <th style="width:150px;">Reģistrācijas numurs</th>
               <th>Dokumenta nosaukums</th>
               <th style="width:90px;">Periods no</th>
@@ -1116,7 +1211,7 @@ fieldset.g legend{
 
 <!-- A1 SERTIFIKĀTA SAGATAVES MODAL -->
 <div class="mo" id="a1SagataveModal">
-  <div class="mw" style="min-width:700px;max-width:760px;">
+  <div class="mw" id="a1SagataveModalBox" style="min-width:700px;max-width:760px;">
     <div class="mt"><span>A1 sertifikāta sagatave — jauna persona</span><button class="tbtn" onclick="closeModal('a1SagataveModal')">✕</button></div>
     <div class="mb" style="max-height:70vh;overflow-y:auto;">
 
@@ -1264,54 +1359,143 @@ fieldset.g legend{
   </div>
 </div>
 
+<button class="btn pr tour-start-btn" id="tourStartBtn" onclick="startTour()">▶ Sākt tūri</button>
+
+<div class="tour-hl" id="tourHl"></div>
+
+<div class="tour-nav" id="tourNav">
+  <div class="tour-nav-handle" id="tourNavHandle" onclick="toggleTourNav()">📍 SOĻI</div>
+  <div class="tour-nav-hd">
+    <div class="tour-nav-hd-l"><span>📍 Visi soļi</span><span class="tour-progress" id="tourNavCount"></span></div>
+    <button class="tour-nav-close" onclick="toggleTourNav(false)">✕</button>
+  </div>
+  <div class="tour-nav-list" id="tourNavList"></div>
+</div>
+
+<div class="tour-tip" id="tourTip">
+  <div class="tour-tip-hd">
+    <div class="tour-tip-hd-title">
+      <span class="tour-step-badge" id="tourStepBadge">1</span>
+      <div>
+        <div id="tourTipTitle">Tūre</div>
+        <div class="tour-tip-group" id="tourTipGroup"></div>
+      </div>
+    </div>
+    <span class="tour-progress" id="tourProgress"></span>
+  </div>
+  <div class="tour-tip-bar"><div class="tour-tip-bar-fill" id="tourBarFill" style="width:0%;"></div></div>
+  <div class="tour-tip-body" id="tourTipBody"></div>
+  <div class="tour-tip-ft">
+    <button class="btn sm pr" onclick="endTour()">✕ Iziet</button>
+    <div style="display:flex;gap:4px;">
+      <button class="btn sm pr" id="tourPrevBtn" onclick="prevTourStep()">◀ Iepr.</button>
+      <button class="btn sm pr" id="tourNextBtn" onclick="nextTourStep()">Tālāk ▶</button>
+    </div>
+  </div>
+</div>
+
 <div class="nt" id="notif"><div class="nt-t" id="ntT"></div><div id="ntX"></div></div>
 
-<!-- ═══════════ AKTUĀLIE JAUTĀJUMI ═══════════ -->
+<!-- ═══════════ FUNKCIONĀLAIS APRAKSTS ═══════════ -->
 <div style="width:1180px;min-width:1000px;margin-top:14px;font-family:Tahoma,'MS Sans Serif',Arial,sans-serif;font-size:12px;">
   <div style="background:#1c4c5c;color:#bcd8e4;font-weight:bold;padding:4px 10px;border-radius:3px 3px 0 0;display:flex;align-items:center;gap:8px;">
     <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid #bcd8e4;flex-shrink:0;"></div>
-    Aktuālie jautājumi
+    Funkcionālais apraksts — Iesniegumu A1 sertifikāta saņemšanai reģistrācija, apskate, apstrāde
   </div>
-  <div style="background:#fff;border:1px solid #8aacaa;border-top:none;border-radius:0 0 3px 3px;padding:12px 16px;">
-    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+  <div style="background:#fff;border:1px solid #8aacaa;border-top:none;border-radius:0 0 3px 3px;padding:14px 18px;font-size:12px;line-height:1.55;color:#1a1c1b;">
+
+    <p style="font-style:italic;color:#555;margin-bottom:10px;">Funkcionalitātes apraksts, lietošanas instrukcija un izstrādes statuss. Dokuments sagatavots izskatīšanai (inspekcijai).</p>
+
+    <div style="font-weight:bold;color:#1c4c5c;margin:10px 0 4px;">Izmantotās ekrānformas un procesi</div>
+    <table style="width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:10px;">
       <thead>
         <tr style="background:#ccd4d2;border-bottom:1px solid #8aacaa;">
-          <th style="padding:5px 8px;text-align:left;width:30px;color:#1a1c1b;font-weight:bold;">#</th>
-          <th style="padding:5px 8px;text-align:left;color:#1a1c1b;font-weight:bold;">Jautājums</th>
-          <th style="padding:5px 8px;text-align:left;width:160px;color:#1a1c1b;font-weight:bold;">Modulis / Ekrānforma</th>
-          <th style="padding:5px 8px;text-align:left;width:120px;color:#1a1c1b;font-weight:bold;">Datums</th>
+          <th style="padding:4px 7px;text-align:left;width:28px;">Nr.</th>
+          <th style="padding:4px 7px;text-align:left;width:230px;">Forma/process</th>
+          <th style="padding:4px 7px;text-align:left;">Apraksts</th>
+          <th style="padding:4px 7px;text-align:left;width:150px;">Izstrādes statuss</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid #e4e8e6;">
-          <td style="padding:6px 8px;vertical-align:top;color:#888;font-size:11px;">1</td>
-          <td style="padding:6px 8px;vertical-align:top;">
-            Kā tiek reģistrēta iesnieguma izskatīšanas <b>"atlikšana"</b>?<br>
-            <span style="font-size:11px;color:#555;">Statuss "Atlikts" tiek uzstādīts no šķirkļa "Atlikt / Atteikt iesniegumu" → "Atlikt apstrādi" → poga "Saglabāt". Nepieciešams precizēt: vai jāreģistrē dokuments par termiņa pagarinājumu, vai pietiek ar statusa maiņu?</span>
-          </td>
-          <td style="padding:6px 8px;vertical-align:top;font-size:11px;color:#1c4c5c;">Atlikt / Atteikt iesniegumu</td>
-          <td style="padding:6px 8px;vertical-align:top;font-size:11px;color:#888;">26.05.2026</td>
-        </tr>
-        <tr style="border-bottom:1px solid #e4e8e6;background:#f8f8f8;">
-          <td style="padding:6px 8px;vertical-align:top;color:#888;font-size:11px;">2</td>
-          <td style="padding:6px 8px;vertical-align:top;">
-            Kā reģistrēt <b>pārtraukuma periodu</b>?<br>
-            <span style="font-size:11px;color:#555;">26.05.2026 — jauna ekrānforma "Izsniegtie A1 sertifikāti". Pārtraukuma periods šobrīd tiek pievienots šķirklī "Sagatavotās atbildes" → sadaļa "Pārtraukuma datums". Jāprecizē: vai pārtraukuma periods ir saistāms tieši ar konkrētu izsniegtu A1 sertifikātu?</span>
-          </td>
-          <td style="padding:6px 8px;vertical-align:top;font-size:11px;color:#1c4c5c;">A1 sertifikāti / Sagatavotās atbildes</td>
-          <td style="padding:6px 8px;vertical-align:top;font-size:11px;color:#888;">26.05.2026</td>
-        </tr>
-        <tr style="border-bottom:1px solid #e4e8e6;">
-          <td style="padding:6px 8px;vertical-align:top;color:#888;font-size:11px;">3</td>
-          <td style="padding:6px 8px;vertical-align:top;">
-            Kā reģistrēt <b>saņemto A1 sertifikātu</b> no citas dalībvalsts?<br>
-            <span style="font-size:11px;color:#555;">Šķirklis "A1 sertifikāti" → bloks "Saņemtie A1 sertifikāti" (tabula ar Saņemšanas datums, Periods no, Periods līdz). Jāprecizē ievades mehānisms un vai nepieciešams piesaistīt oriģināldokumentu.</span>
-          </td>
-          <td style="padding:6px 8px;vertical-align:top;font-size:11px;color:#1c4c5c;">A1 sertifikāti</td>
-          <td style="padding:6px 8px;vertical-align:top;font-size:11px;color:#888;">26.05.2026</td>
-        </tr>
+        <tr style="border-bottom:1px solid #e4e8e6;"><td style="padding:5px 7px;vertical-align:top;color:#888;">1</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "Saņemto dokumentu žurnāls"</td><td style="padding:5px 7px;vertical-align:top;">Reģistrē elektroniski vai pa pastu atsūtīto D11724 iesniegumu</td><td style="padding:5px 7px;vertical-align:top;color:#1a6a2a;">Realizēts</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;background:#f8f8f8;"><td style="padding:5px 7px;vertical-align:top;color:#888;">2</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "Iesniegumu A1 sertifikāta saņemšanai"</td><td style="padding:5px 7px;vertical-align:top;">Iespējams meklēt, apskatīt, pieņemt lēmumus par iesniegumiem A1 sertifikāta saņemšanai</td><td style="padding:5px 7px;vertical-align:top;color:#a52020;">Nav pieteikts</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;"><td style="padding:5px 7px;vertical-align:top;color:#888;">3</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "Neapstrādāto sertifikātu iesniegumu saraksts"</td><td style="padding:5px 7px;vertical-align:top;">Inspektors var atrast iesniegumus, uz kuriem par katru personu nav sagatavota atbilde (PDF)</td><td style="padding:5px 7px;vertical-align:top;color:#a06000;">Realizēts, vajag izmaiņas</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;background:#f8f8f8;"><td style="padding:5px 7px;vertical-align:top;color:#888;">4</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "Iesnieguma izskatīšanas termiņkontrole"</td><td style="padding:5px 7px;vertical-align:top;">Termiņkontrole iesnieguma un personu līmenī</td><td style="padding:5px 7px;vertical-align:top;color:#a52020;">Nav bijusi diskusija</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;"><td style="padding:5px 7px;vertical-align:top;color:#888;">5</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "Sertifikāti"</td><td style="padding:5px 7px;vertical-align:top;">Nepieciešama diskusija par izmantošanu</td><td style="padding:5px 7px;vertical-align:top;color:#1a6a2a;">Realizēts</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;background:#f8f8f8;"><td style="padding:5px 7px;vertical-align:top;color:#888;">6</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "Iesnieguma A1 sertifikāta saņemšanai"</td><td style="padding:5px 7px;vertical-align:top;">Iespējams apskatīt, labot D11724 iesniegumu (personas griezumā)</td><td style="padding:5px 7px;vertical-align:top;color:#a06000;">Realizēts, vajag izmaiņas</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;"><td style="padding:5px 7px;vertical-align:top;color:#888;">7</td><td style="padding:5px 7px;vertical-align:top;">Ekrānforma: "A1 sertifikāts"</td><td style="padding:5px 7px;vertical-align:top;">A1 sertifikāta ekrānforma</td><td style="padding:5px 7px;vertical-align:top;color:#1a6a2a;">Realizēts</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;background:#f8f8f8;"><td style="padding:5px 7px;vertical-align:top;color:#888;">8</td><td style="padding:5px 7px;vertical-align:top;">Atteikuma lēmums — par iesniegumu</td><td style="padding:5px 7px;vertical-align:top;">—</td><td style="padding:5px 7px;vertical-align:top;color:#a52020;">Nav pieteikts</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;"><td style="padding:5px 7px;vertical-align:top;color:#888;">9</td><td style="padding:5px 7px;vertical-align:top;">Atteikuma lēmums — par iesniegumā norādīto personu</td><td style="padding:5px 7px;vertical-align:top;">—</td><td style="padding:5px 7px;vertical-align:top;color:#a52020;">Nav pieteikts</td></tr>
+        <tr style="border-bottom:1px solid #e4e8e6;background:#f8f8f8;"><td style="padding:5px 7px;vertical-align:top;color:#888;">10</td><td style="padding:5px 7px;vertical-align:top;">Process: "M.AUTOSED"</td><td style="padding:5px 7px;vertical-align:top;">Sagatavotā A1 sertifikāta automatizēta nosūtīšana ar SED</td><td style="padding:5px 7px;vertical-align:top;color:#a52020;">Nav pieteikts</td></tr>
       </tbody>
     </table>
+
+    <div style="font-weight:bold;color:#1c4c5c;margin:12px 0 4px;">Dokumenta mērķis un tvērums</div>
+    <p style="margin-bottom:6px;">Lietotāju instrukcija Iesniegumu A1 sertifikāta saņemšanai reģistrācijai, apskatei un apstrādei.</p>
+    <p style="margin-bottom:6px;"><b>Iesnieguma reģistrācija no www.latvija.lv</b> — Iesniegumi A1 sertifikāta saņemšanai IS nonāk divos veidos:</p>
+    <ol style="margin:0 0 6px 22px;padding:0;">
+      <li>Iesniedzot e-iesniegumu portālā www.latvija.lv (EP238): 49765 Darba devēja E-iesniegums un 49775 Personas E-iesniegums sociāli apdrošināmās personas statusa saglabāšanai Latvijā (A1 sertifikāta saņemšanai). Reģistrējot iesniegumu SAIS, tas tiks transformēts par D11724 dokumentu.</li>
+      <li>Elektroniski vai pa pastu saņemtā iesnieguma reģistrācija SAIS — lietvedībā "Saņemto dokumentu žurnāls".</li>
+    </ol>
+    <p style="margin-bottom:10px;"><b>Neapstrādāto dokumentu attēlošana</b> — ekrānforma "Neapstrādāto sertifikātu iesniegumu saraksts".</p>
+
+    <div style="font-weight:bold;color:#1c4c5c;margin:12px 0 4px;">Ekrānformas vispārējs izkārtojums</div>
+    <p style="margin-bottom:10px;">Ekrānforma sastāv no diviem galvenajiem blokiem: <b>Kreisais panelis</b> — iesniegumu saraksts ar meklēšanu, statusa filtru un darbību pogām; <b>Labais panelis</b> — izvēlētā iesnieguma vai personas detalizēta informācija, sadalīta cilnēs.</p>
+
+    <div style="font-weight:bold;color:#1c4c5c;margin:14px 0 6px;font-size:13px;">Detalizēts soļu apraksts</div>
+
+    <div style="margin-bottom:8px;"><b>1. Iesniegumu saņemšana un reģistrācija</b><br>
+    Automātiski — e-iesniegumi no latvija.lv reģistrējas bez operatora iesaistes (statuss "Jauns", gaitā redzams notikums "Reģistrēts iesniegums", lietotājs "SISTĒMA"). Manuāli — klātienē/pastā/e-pastā saņemtos operators reģistrē ar pogu "+ Reģistrēt jaunu iesniegumu", norādot iesniedzēju, iesnieguma veidu (piem., 11724) un saņemšanas veidu.<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>2. Iesniegumu saraksta apskate</b><br>
+    Krāsains statusa indikators (Jauns/Apstrādē/Apstiprināts/Noraidīts/Atlikts) un lēmumu progresa rādītājs (piem., "3/3"). Meklēšana pēc nosaukuma/personas koda, statusa filtrs, izvēršams saraksts pa personām.<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>3. Iesnieguma un iesniedzēja datu apskate</b><br>
+    Divi bloki: "Informācija par iesniedzēju" (nosaukums, reģ. numurs, adrese, kontakti, reģistrētie aizliegumi, piem., VID parādi) un "Informācija par iesniegumu" (veids, reģ. datums, personu skaits, neapstrādāto skaits, lēmuma nosūtīšanas veids).<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>4. Pievienotie dokumenti un personas reģistrācija (A1 sagatave)</b><br>
+    Dokumentu saraksts + "+ Pievienot reģistrētu dokumentu" + "+ Reģistrēt personu (A1 sagatave)" — pilna A1 sertifikāta sagataves anketa (personas dati, adreses, nodarbinātības periods/valstis, darba devēja dati citā valstī, nodarbinātības informācija, vēlamais saņemšanas veids).<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>5. Darba devēja raksturojums un iesniegumu vēsture</b><br>
+    NACE kods/nosaukums, darbinieku (t.sk. administratīvo) skaits, iepriekš izsniegto/atteikto A1 skaits kārtējā gadā, detalizēts VSAOI iemaksu ziņojums.<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>6. DD pārbaude / iesnieguma atlikšana / atteikšana (uzņēmuma līmenī)</b><br>
+    Trīs sadaļas: DD pārbaude (pārbaužu periods + pārbaudītājs); Atlikt apstrādi (papildu info, termiņš, piezīmes); Atteikt iesniegumu (iemesls no klasifikatora ar automātisku tiesisko pamatojumu + brīvs teksts).<br>
+    <span style="color:#a06000;font-size:11px;">Izstrādes statuss: Realizēts. Precizējams pārtraukuma/atlikšanas dokumenta reģistrācijas mehānisms.</span></div>
+
+    <div style="margin-bottom:8px;"><b>7. Darba ņēmēja raksturojums (personas līmenī)</b><br>
+    Persona, kods, dzimšanas datums, darba valstis, darba devējs, statuss, periods; apdrošināšanas periodi, pazīmes, iemaksas.<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>8. Lēmuma pieņemšana par personu</b><br>
+    Atlikt (papildu dokuments, termiņš, piezīmes) / Apstiprināt (periods + "Sagatavot A1") / Noraidīt (iemesls no klasifikatora, automātisks pamatojums, brīvs teksts).<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:8px;"><b>9. A1 sertifikāta sagatavošana un pārtraukuma reģistrācija</b><br>
+    Pēc apstiprināšanas — ieraksts par sagatavoto A1, nosūtīts iesniedzējam. Cilne "A1 sertifikāti": Nosūtītie dokumenti (LV izsniegtie) + Saņemtie A1 sertifikāti (no citas ES/EEZ valsts).<br>
+    <span style="color:#a06000;font-size:11px;">Izstrādes statuss: Realizēts. Pārtraukuma perioda piesaiste konkrētam sertifikātam — precizējama.</span></div>
+
+    <div style="margin-bottom:8px;"><b>10. Sagatavotās atbildes / Saņemtie un nosūtītie dokumenti</b><br>
+    Sagatavotās atbildes (visu sagatavoto atbilžu saraksts) + Saņemtie/Nosūtītie dokumenti (iepriekšējo iesniegumu vēsture + pilns nosūtīto lēmumu saraksts).<br>
+    <span style="color:#1a6a2a;font-size:11px;">Izstrādes statuss: Realizēts.</span></div>
+
+    <div style="margin-bottom:10px;"><b>11. Izskatīšanas termiņu kontrole</b><br>
+    Automātiska iesnieguma/personas izskatīšanas termiņa kontrole ar atgādinājumu, tuvojoties/iestājoties termiņa beigām.<br>
+    <span style="color:#a52020;font-size:11px;">Izstrādes statuss: Nav realizēts vsaa.html ietvaros — realizēts atsevišķā ekrānformā (terminkontrole.html). Precizējams termiņa aprēķina bāze un atgādinājuma attēlošanas vieta.</span></div>
+
+    <div style="font-weight:bold;color:#1c4c5c;margin:14px 0 6px;font-size:13px;">Pielikums. Izmaiņu pieprasījuma apraksts (SED apstrādes automatizācija)</div>
+    <p style="margin-bottom:6px;">Atsevišķs, ar SED (strukturēto elektronisko dokumentu) apstrādi saistīts izmaiņu pieprasījums SAIS ietvaros.</p>
+    <ol style="margin:0 0 8px 22px;padding:0;">
+      <li style="margin-bottom:4px;"><b>"SED apstrādes gaita" notikuma nosaukuma maiņa</b> — mainīt notikuma "Nosūtīts" nosaukumu uz "Izsūtīts" (arī MFS un atskaitē D34101).</li>
+      <li style="margin-bottom:4px;"><b>Jauns klasifikators "Automatizēti nosūtāmo SED adresāti"</b> — dati par katram BUC veidam norādāmo adresātu katrā ES dalībvalstī (iestādes kods, darbības sākuma/beigu datums); sākotnēji aizpildīt ar BUC veidiem LA_BUC_02, LA_BUC_04, LA_BUC_05; viegli atjaunināmi ieraksti; pēc beigu datuma iestādi vairs nedrīkst atlasīt kā adresātu; lomas — IAN.</li>
+      <li><b>Pazīme A1 ekrānformā par manuālu SED nosūtīšanu</b> — iespēja atzīmēt, ka SED netiks nosūtīts automātiski (pēc noklusējuma neaizpildīta). Izņēmums: ja norādīts "Izņēmums — Regulas Nr. 883/2004 16. pants", pazīme vienmēr aizpildīta un SED tiek gatavots manuāli.</li>
+    </ol>
+
   </div>
 </div>
 
@@ -2161,6 +2345,196 @@ function viewLemumsResp(idx){
     '<b>Dokumenta veids:</b> '+r.docType+'<br>'+
     '<b>Nosūtīts:</b> '+(r.sendDate||'—')+' ('+r.sendType+')<br><br>'+
     'Dokuments tiek ielādēts no arhīva sistēmas...');
+}
+
+/* ═══════════ GUIDED TOUR ═══════════ */
+var tourIdx=-1;
+var tourSteps=[
+  {grp:'Pārskats',sel:'.ww',title:'Laipni lūgti!',text:'Šī ir A1 sertifikātu iesniegumu apstrādes sistēma. Šī tūre soli pa solim parādīs visas funkcijas un pilnu A1 sertifikāta izskatīšanas darba plūsmu. Jebkurā brīdī vari lēkt uz jebkuru soli, izmantojot saraksti pa labi.'},
+  {grp:'Saraksts',sel:'#searchFilterBlock',title:'Meklēšana un filtrs',text:'Meklē pēc iesniedzēja nosaukuma vai personas koda. Filtrē sarakstu pēc statusa (Jauns / Apstrādē / Apstiprināts / Noraidīts / Atlikts).'},
+  {grp:'Saraksts',sel:'.lch',title:'Saraksta kolonnas',text:'"Stat." rāda iesnieguma/personas statusu ar krāsainu punktu. "Lēm." rāda, vai lēmums (sertifikāts vai atteikums) jau ir sagatavots — piemēram "2/3" nozīmē 2 no 3 personām jau ir lēmums.'},
+  {grp:'Saraksts',sel:'.lgr',title:'Statusu apzīmējumi',text:'Krāsu leģenda: zils = Jauns, oranžs = Apstrādē, zaļš = Apstiprināts, sarkans = Noraidīts, violets = Atlikts.'},
+  {grp:'Saraksts',sel:'#mainList',before:function(){selApp=null;selPerson=null;viewMode='empty';renderList();showView('empty');},title:'Iesniegumu saraksts',text:'Katrs iesniegums var saturēt vairākas personas — klikšķini uz bultiņas, lai izvērstu un redzētu personas. Klikšķini uz iesnieguma vai personas, lai atvērtu tā datus labajā pusē.'},
+  {grp:'Iesniedzējs',sel:'#fieldsetIesniedzejs',before:function(){onSelectApp(apps[0]);},title:'Informācija par iesniedzēju',text:'Izvēloties iesniegumu, pa labi redzama iesniedzēja informācija — nosaukums, reģ. numurs, adrese, kontakti, un jauns bloks "Aizliegumi", kas rāda visus reģistrētos darba devēja ierobežojumus neatkarīgi no to termiņa.'},
+  {grp:'Iesniedzējs',sel:'#fieldsetIesniegums',title:'Informācija par iesniegumu',text:'Iesnieguma kods un nosaukums, reģistrācijas dati, personu skaits, neapstrādāto skaits, ISS/SAIS reģistrācijas numuri un lēmuma nosūtīšanas veids (t.sk. jaunā opcija "E-adrese").'},
+  {grp:'Iesnieguma cilnes',sel:'#cTabsBlock',title:'Iesnieguma cilnes',text:'Piecas cilnes pārvalda visu iesnieguma apstrādi: Pievienotie dokumenti, Darba devēja raksturojums, Atlikt/Atteikt iesniegumu, Sagatavotās atbildes, Saņemtie/Nosūtītie dokumenti.'},
+  {grp:'Iesnieguma cilnes',sel:'#cpanel_docs',before:function(){switchCTab('docs');},title:'Pievienotie dokumenti',text:'Visi iesniegumam pievienotie dokumenti. "+ Pievienot reģistrētu dokumentu" reģistrē jau saņemtu dokumentu. Jaunā poga "+ Reģistrēt personu (A1 sagatave)" ļauj manuāli reģistrēt personu no papīra iesnieguma ar pilnu A1 sertifikāta sagataves datu kopu.'},
+  {grp:'Iesnieguma cilnes',sel:'#a1SagataveModalBox',before:function(){openA1SagataveModal();},title:'A1 sertifikāta sagatave',text:'Pilna forma manuālai personas datu ievadei: Personas dati (t.sk. cita valsts ID, dzimtais uzvārds, adreses), Nodarbinātības periods un valstis, Darba devēja dati, Nodarbinātības informācija (% laiks/atalgojums), Nodarbinātības veids un Papildinformācija par A1 saņemšanas veidu.'},
+  {grp:'Iesnieguma cilnes',sel:'#cpanel_devejs',before:function(){closeModal('a1SagataveModal');switchCTab('devejs');},title:'Darba devēja raksturojums',text:'NACE kods, darbinieku skaits, iepriekš izsniegtie/atteiktie A1 sertifikāti un VID iemaksu ziņojuma dati par pēdējiem mēnešiem.'},
+  {grp:'Iesnieguma cilnes',sel:'#atteiktRadioRow',before:function(){switchCTab('atteikt');switchAtteiktType('ddparbaude');},title:'Atlikt / Atteikt iesniegumu',text:'Trīs iespējas visam iesniegumam: DD pārbaude, Atlikt apstrādi vai Atteikt iesniegumu kopumā.'},
+  {grp:'Iesnieguma cilnes',sel:'#ddparbaudeSection',title:'DD pārbaude',text:'Vienkārša tabula, kur reģistrē pārbaudes periodu (sākuma/beigu datums) un pārbaudītāju.'},
+  {grp:'Iesnieguma cilnes',sel:'#atliktSection',before:function(){switchAtteiktType('atlikt');},title:'Atlikt apstrādi',text:'Izvēlas trūkstošo informāciju, ievada termiņu un piezīmes, tad saglabā — iesnieguma statuss kļūst "Atlikts".'},
+  {grp:'Iesnieguma cilnes',sel:'#atteiktSection',before:function(){switchAtteiktType('atteikt');},title:'Atteikt iesniegumu',text:'Atteikuma iemeslu sarakstā iekļauti arī jauni iemesli: "Pašnodarbinātais nav veicis saimniecisko darbību Latvijā" un "Darba devējs neveic būtisku saimniecisko darbību Latvijā". Tiesiskais pamatojums aizpildās automātiski.'},
+  {grp:'Iesnieguma cilnes',sel:'#cpanel_resp',before:function(){switchAtteiktType('ddparbaude');switchCTab('resp');},title:'Sagatavotās atbildes',text:'Visas sagatavotās atbildes (A1 sertifikāti, atteikumi u.c.) šim iesniegumam, sasaistītas ar konkrētām personām.'},
+  {grp:'Iesnieguma cilnes',sel:'#cpanel_lemumi',before:function(){switchCTab('lemumi');},title:'Saņemtie/Nosūtītie dokumenti',text:'Augšā — iepriekšējie iesniegumi no šī paša darba devēja. Apakšā — visi šim iesniegumam nosūtītie dokumenti.'},
+  {grp:'Persona',sel:'#fieldsetPersonasDati',before:function(){switchCTab('docs');onSelectPerson(apps[0],apps[0].persons[0]);},title:'Personas dati',text:'Izvēloties konkrētu personu, redzami tās dati: kods, dzimšanas datums, darba valstis (var atzīmēt vairākas), darba devējs, nodarbinātības statuss un periods.'},
+  {grp:'Persona',sel:'#pTabsBlock',title:'Personas cilnes',text:'Četras cilnes: Darba ņēmēja raksturojums, Lēmums, A1 sertifikāti, Personas informācija.'},
+  {grp:'Persona',sel:'#ppanel_raksturojums',before:function(){switchPTab('raksturojums');},title:'Darba ņēmēja raksturojums',text:'Apdrošināšanas periodi, pazīmes (VID ziņas par darba ņēmēju) un detalizēta iemaksu vēsture par pēdējiem mēnešiem.'},
+  {grp:'Lēmuma pieņemšana',sel:'.rg',before:function(){switchPTab('lemums');},title:'Lēmums — trīs iespējas',text:'Šeit pieņem lēmumu par konkrētu personu: Atlikt (nepieciešama papildu info), Apstiprināt (izsniegt A1) vai Noraidīt.'},
+  {grp:'Lēmuma pieņemšana',sel:'#pendingSection',before:function(){var r=document.querySelector('input[name="decision"][value="pending"]');if(r)r.checked=true;handleDecision('pending');},title:'Atlikt lēmumu',text:'Izvēlas pieprasīto informāciju, ievada termiņu un piezīmes personai — tāpat kā iesnieguma līmenī, bet konkrētai personai.'},
+  {grp:'Lēmuma pieņemšana',sel:'#approveSection',before:function(){var r=document.querySelector('input[name="decision"][value="approve"]');if(r)r.checked=true;handleDecision('approve');},title:'Apstiprināt — A1 sertifikāta izsniegšana',text:'Norāda periodu "no" un "līdz", tad "Sagatavot A1" izveido A1 sertifikātu, atjaunina statusu uz "Apstiprināts" un reģistrē notikumu nosūtīšanai uz RINA.'},
+  {grp:'Lēmuma pieņemšana',sel:'#declineSection',before:function(){var r=document.querySelector('input[name="decision"][value="decline"]');if(r)r.checked=true;handleDecision('decline');},title:'Noraidīt',text:'Iemeslu sarakstā tagad iekļauti arī "Nav darba attiecību" un "Darba devējs neveic būtisku saimniecisko darbību Latvijā". Tiesiskais pamatojums un standarta komentārs par apstrīdēšanas kārtību aizpildās automātiski.'},
+  {grp:'Lēmuma pieņemšana',sel:'#pRespTable',before:function(){var st=selPerson.status==='no'?'decline':selPerson.status==='ok'?'approve':'pending';var r=document.querySelector('input[name="decision"][value="'+st+'"]');if(r)r.checked=true;handleDecision(st);},title:'Sagatavotās atbildes (persona)',text:'Visi šai personai sagatavotie dokumenti — reģistrācijas numurs, periods, pārtraukšanas datums, ja tāds ir.'},
+  {grp:'Persona',sel:'#ppanel_a1sert',before:function(){switchPTab('a1sert');},title:'A1 sertifikāti',text:'Nosūtītie (izsniegtie) un saņemtie (no citām dalībvalstīm) A1 sertifikāti šai personai ar periodiem un pārtraukšanas datumiem.'},
+  {grp:'Persona',sel:'#ppanel_persinfo',before:function(){switchPTab('persinfo');},title:'Personas informācija',text:'Iemaksu objekta dati un uzturēšanās atļauju informācija. Ja persona reģistrēta caur "A1 sagatavi", šeit parādās arī visi papildu ievadītie dati.'},
+  {grp:'Kopsavilkums',sel:'.ww',before:function(){switchPTab('raksturojums');},title:'Pilna darba plūsma — kopsavilkums',text:'1) Reģistrē iesniegumu → 2) izvēlies personu → 3) pieņem lēmumu (Atlikt / Apstiprināt / Noraidīt) → 4) apstiprinot, sagatavo A1 sertifikātu un tas tiek nosūtīts uz RINA → 5) termiņus, kas gaida atbildi no ārvalstu iestādēm, seko līdzi atsevišķajā Termiņkontroles ekrānā. Tūre pabeigta!'}
+];
+
+function closeAllTourModals(){
+  ['decisionModal','infoModal','newAppModal','regDocModal','newRespModal','addGaitaModal','a1SagataveModal'].forEach(function(id){
+    var m=document.getElementById(id);if(m)m.classList.remove('show');
+  });
+}
+
+function buildTourNav(){
+  var list=document.getElementById('tourNavList');
+  list.innerHTML='';
+  var lastGrp=null;
+  tourSteps.forEach(function(step,i){
+    if(step.grp!==lastGrp){
+      var lbl=document.createElement('div');lbl.className='tour-nav-group-lbl';lbl.textContent=step.grp;
+      list.appendChild(lbl);
+      lastGrp=step.grp;
+    }
+    var item=document.createElement('div');
+    item.className='tour-nav-item';
+    item.id='tourNavItem_'+i;
+    item.innerHTML='<span class="tour-nav-num">'+(i+1)+'</span><span class="tour-nav-txt">'+step.title+'</span>';
+    item.addEventListener('click',function(){jumpToTourStep(i);});
+    list.appendChild(item);
+  });
+  document.getElementById('tourNavCount').textContent=tourSteps.length+' soļi';
+}
+
+function updateTourNavHighlight(){
+  tourSteps.forEach(function(step,i){
+    var item=document.getElementById('tourNavItem_'+i);
+    if(!item)return;
+    item.className='tour-nav-item'+(i===tourIdx?' current':(i<tourIdx?' done':''));
+  });
+  var current=document.getElementById('tourNavItem_'+tourIdx);
+  if(current)current.scrollIntoView({block:'nearest'});
+}
+
+function startTour(){
+  document.getElementById('tourStartBtn').style.display='none';
+  buildTourNav();
+  var nav=document.getElementById('tourNav');
+  nav.style.display='flex';
+  nav.classList.remove('expanded');
+  tourIdx=0;
+  showTourStep();
+}
+
+function toggleTourNav(force){
+  var nav=document.getElementById('tourNav');
+  var show=(force!==undefined)?force:!nav.classList.contains('expanded');
+  nav.classList.toggle('expanded',show);
+}
+
+function endTour(){
+  tourIdx=-1;
+  closeAllTourModals();
+  document.getElementById('tourHl').style.display='none';
+  document.getElementById('tourTip').classList.remove('show');
+  document.getElementById('tourTip').style.display='none';
+  var nav=document.getElementById('tourNav');
+  nav.classList.remove('expanded');
+  nav.style.display='none';
+  document.getElementById('tourStartBtn').style.display='inline-flex';
+  selApp=null;selPerson=null;viewMode='empty';
+  switchCTab('docs');switchPTab('raksturojums');switchAtteiktType('ddparbaude');
+  renderList();showView('empty');
+}
+
+function nextTourStep(){
+  if(tourIdx>=tourSteps.length-1){endTour();return;}
+  tourIdx++;showTourStep();
+}
+function prevTourStep(){
+  if(tourIdx<=0)return;
+  tourIdx--;showTourStep();
+}
+function jumpToTourStep(i){
+  if(i<0||i>=tourSteps.length)return;
+  tourIdx=i;showTourStep();
+}
+
+function showTourStep(){
+  closeAllTourModals();
+  var step=tourSteps[tourIdx];
+  if(!step){endTour();return;}
+  document.getElementById('tourTip').classList.remove('show');
+  if(step.before){try{step.before();}catch(e){}}
+  updateTourNavHighlight();
+  setTimeout(function(){positionTourStep(step);},60);
+}
+
+function positionTourStep(step){
+  var target=document.querySelector(step.sel);
+  var hl=document.getElementById('tourHl');
+  var tip=document.getElementById('tourTip');
+  if(!target){
+    hl.style.display='none';
+    positionTipFallback(tip);
+  } else {
+    var inModal=!!target.closest('.mo.show');
+    target.scrollIntoView({block:'center',inline:'center'});
+    setTimeout(function(){
+      var r=target.getBoundingClientRect();
+      hl.style.display='block';
+      hl.style.top=(r.top-4)+'px';
+      hl.style.left=(r.left-4)+'px';
+      hl.style.width=(r.width+8)+'px';
+      hl.style.height=(r.height+8)+'px';
+      positionTip(tip,r,inModal);
+    },50);
+  }
+  document.getElementById('tourStepBadge').textContent=(tourIdx+1);
+  document.getElementById('tourTipTitle').textContent=step.title;
+  document.getElementById('tourTipGroup').textContent=step.grp;
+  document.getElementById('tourTipBody').textContent=step.text;
+  document.getElementById('tourProgress').textContent=(tourIdx+1)+' / '+tourSteps.length;
+  document.getElementById('tourBarFill').style.width=Math.round(((tourIdx+1)/tourSteps.length)*100)+'%';
+  document.getElementById('tourPrevBtn').disabled=(tourIdx===0);
+  document.getElementById('tourNextBtn').textContent=(tourIdx===tourSteps.length-1)?'Pabeigt ✔':'Tālāk ▶';
+  tip.style.display='block';
+  requestAnimationFrame(function(){tip.classList.add('show');});
+}
+
+function positionTip(tip,r,inModal){
+  var vw=window.innerWidth,vh=window.innerHeight;
+  var navEl=document.getElementById('tourNav');
+  var navExpanded=navEl&&navEl.classList.contains('expanded');
+  var navLeft=navExpanded?navEl.getBoundingClientRect().left:vw;
+  var tw=340,th=tip.offsetHeight||220;
+  var maxRight=Math.min(vw-10,navLeft-10);
+  var top,left;
+  if(inModal){
+    /* Modal steps: place tooltip beside the modal, never over it */
+    top=r.top+(r.height/2)-(th/2);
+    top=Math.max(10,Math.min(top,vh-th-10));
+    if(r.left-tw-20>=10){
+      left=r.left-tw-20;
+    } else if(r.right+20+tw<=maxRight){
+      left=r.right+20;
+    } else {
+      left=Math.max(10,maxRight-tw);
+      top=Math.max(10,r.top-th-14);
+    }
+  } else {
+    top=r.bottom+14;
+    if(top+th>vh-10)top=Math.max(10,r.top-th-14);
+    left=r.left;
+    if(left+tw>maxRight)left=maxRight-tw;
+    if(left<10)left=10;
+  }
+  tip.style.top=top+'px';
+  tip.style.left=left+'px';
+}
+function positionTipFallback(tip){
+  tip.style.top='80px';
+  tip.style.left=(window.innerWidth/2-170)+'px';
 }
 
 </script>
